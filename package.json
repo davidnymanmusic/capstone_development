@@ -1,0 +1,21 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "dependencies": {
+    "expo": "^25.0.0",
+    "react": "16.2.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react-native-animatable": "^1.2.4",
+    "react-native-material-ripple": "^0.8.0",
+    "react-native-swiper": "^1.5.13",
+    "react-native-timer-countdown": "^1.1.0",
+    "react-native-vector-icons": "^4.5.0",
+    "react-navigation": "^1.5.8"
+  },
+	"scripts": {
+	"test": "jest"
+},
+  "devDependencies": {
+    "jest": "^22.4.3"
+  }
+}
