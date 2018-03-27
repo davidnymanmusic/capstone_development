@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableHighlight, TouchableOpacity, Button, Image } from 'react-native';
-import { TabNavigator, TabBarBottom, DrawerNavigator  } from 'react-navigation';
+import { Text, View, StyleSheet, TouchableHighlight, TouchableOpacity, Button, Image, Dimensions } from 'react-native';
+
+import { TabNavigator, TabBarBottom, DrawerNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Feather'
 import * as Animatable from 'react-native-animatable';
 import Ripple from 'react-native-material-ripple';
@@ -8,6 +9,12 @@ import Ripple from 'react-native-material-ripple';
 import TimerCountdown from 'react-native-timer-countdown'
 
 import AudioPlayer from '../AudioPlayer'
+import HomeScreen from '/Users/davidnyman/capstone/development/coming_together/Components/Screens/HomeScreen'
+import MusicScreen from '/Users/davidnyman/capstone/development/coming_together/Components/Screens/MusicScreen'
+import SettingsScreen from '/Users/davidnyman/capstone/development/coming_together/Components/Screens/SettingsScreen'
+
+var width = Dimensions.get('window').width; //full width
+var height = Dimensions.get('window').height; //full height
 
 
 
@@ -35,65 +42,12 @@ Animatable.initializeRegistryWithDefinitions({
 });
 
 
-class HomeScreen extends React.Component {
-  render() {
-    return (
-			<Animatable.View style={styles.container} >
-				<Animatable.Text style={styles.textBreathe} animation='breatheText' iterationCount={'infinite'} direction="alternate" duration={3000}>Breathe Deeply</Animatable.Text>
-				<Animatable.Text animation="breathe" iterationCount={'infinite'} direction="alternate" duration={3000}>
-			    <Ionicons name="circle" size={250} color="rgba(255, 255, 255, 0.63)"/></Animatable.Text>
-			</Animatable.View>
-    );
-  }
-}
-class SettingsScreen extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-				<Ripple rippleColor={'rgb(255, 255, 255)'} rippleOpacity={.8} rippleSize={479} rippleDuration={3000}>
-<TouchableHighlight style={styles.button}><Text style={styles.text}>Touch</Text></TouchableHighlight>
-				</Ripple>
-      </View>
-    );
-  }
-}
-
-class MusicScreen extends React.Component {
-	constructor(props) {
-    super(props);
-    this.state = {
-			count: 0,
-			pressed: false,
-			test: 'Hello'
-    }
-		this.buttonPress = this.buttonPress.bind(this)
-}
-		buttonPress() {
-		    this.setState({
-					count: this.state.count + 60000,
-					pressed: true,
-					test: 'hey'
-				})
-		}
 
 
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				{/* <TouchableOpacity onPress={this.buttonPress}><Text>Press</Text></TouchableOpacity>
-
-				{this.state.pressed ? <TimerCountdown initialSecondsRemaining={this.state.count} allowFontScaling={true} style={{ fontSize: 20 }}></TimerCountdown> : <Text>{this.state.test}</Text>} */}
-
-				<AudioPlayer />
-
-      </View>
-    );
-  }
-}
 
 class MyNotificationsScreen extends React.Component {
 	static navigationOptions = {
-		drawerLabel: 'Activties',
+		drawerLabel: 'Activities',
 		drawerIcon: ({ tintColor }) => (
 			<Ionicons name="circle" size={20} color="#9dc6d1"/>
 		),
@@ -113,18 +67,21 @@ class MyNotificationsScreen extends React.Component {
 
 
 
-const MyApp = DrawerNavigator({
-	Home: {
-		screen: HomeScreen,
-	},
-	Notifications: {
-		screen: MyNotificationsScreen,
-	}
-});
+// const MyApp = DrawerNavigator({
+// 	Home: {
+// 		screen: HomeScreen,
+// 	},
+// 	Audio: {
+// 		screen: MusicScreen,
+// 	},
+// 	Test: {
+// 		screen: MyNotificationsScreen
+// 	},
+// });
 
 export default TabNavigator (
 {
-Home: { screen: MyApp },
+Home: { screen: HomeScreen },
 Music: {screen: MusicScreen},
 Settings: { screen: SettingsScreen },
 },
@@ -147,7 +104,9 @@ navigationOptions: ({ navigation }) => ({
 		// icon component from react-native-vector-icons
 		return <Ionicons name={iconName} size={25} color={tintColor} />;
 	},
+	swipeEnabled: true,
 }),
+
 style: {
 	backgroundColor: '#9dc6d1',
 	shadowColor: 'transparent',
@@ -184,11 +143,30 @@ backgroundColor: '#9dc6d1',
 alignItems: 'center',
 justifyContent: 'center'
 },
+timer: {
+backgroundColor: '#9dc6d1',
+alignItems: 'center',
+justifyContent: 'center',
+width: width
+},
+start: {
+	alignItems: 'center',
+padding: 10,
+paddingLeft: 10,
+paddingRight: 10,
+color: 'rgba(255, 255, 255, 0.8)',
+backgroundColor: 'rgba(255, 255, 255, 0.1)',
+fontFamily: 'Avenir-Book',
+fontSize: 20,
+borderWidth: 2,
+borderColor: 'rgba(255, 255, 255, 0.8)',
+},
 containerWelcome: {
 flex: 1,
 backgroundColor: '#9dc6d1',
 alignItems: 'center',
-justifyContent: 'center'
+justifyContent: 'center',
+
 },
 slide1: {
 flex: 1,

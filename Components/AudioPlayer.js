@@ -15,33 +15,19 @@ import Icon from 'react-native-vector-icons/Feather';
 import Swiper from 'react-native-swiper';
 import * as Animatable from 'react-native-animatable';
 
-Animatable.initializeRegistryWithDefinitions({
-  intro: {
-		0: {
-	    opacity: 0,
-	    // scale: .3,
-			translateY: -200
-	  },
-	  1: {
-	    opacity: 1,
-	    // scale: 1.2,
-			translateY: 0
-	  },
-  }
-});
+
 Animatable.initializeRegistryWithDefinitions({
   load: {
-		0: {
-	    opacity: 0,
-	  },
-		0.5: {
-	    opacity: 1,
-	  },
-	  1: {
-	    opacity: 0,
-	  },
+		from: {
+		    opacity: 0.45,
+		  },
+		  to: {
+		    opacity: 1,
+
+		  },
   }
 });
+
 
 class OLDICON {
   constructor(module, width, height) {
@@ -68,31 +54,31 @@ const PLAYLIST = [
   ),
 ];
 
-const OLDICON_PLAY_BUTTON = new OLDICON(require('../assets/images/play_button.png'), 34, 51);
-const OLDICON_PAUSE_BUTTON = new OLDICON(require('../assets/images/pause_button.png'), 34, 51);
-const OLDICON_STOP_BUTTON = new OLDICON(require('../assets/images/stop_button.png'), 22, 22);
-const OLDICON_FORWARD_BUTTON = new OLDICON(require('../assets/images/forward_button.png'), 33, 25);
-const OLDICON_BACK_BUTTON = new OLDICON(require('../assets/images/back_button.png'), 33, 25);
+const OLDICON_PLAY_BUTTON = new OLDICON(require('../assets/images/ICONS/play_button.png'), 100, 100);
+const OLDICON_PAUSE_BUTTON = new OLDICON(require('../assets/images/ICONS/pause_button.png'), 34, 51);
+const OLDICON_STOP_BUTTON = new OLDICON(require('../assets/images/ICONS/stop_button.png'), 22, 22);
+const OLDICON_FORWARD_BUTTON = new OLDICON(require('../assets/images/ICONS/forward_button.png'), 33, 25);
+const OLDICON_BACK_BUTTON = new OLDICON(require('../assets/images/ICONS/back_button.png'), 33, 25);
 
 const OLDICON_LOOP_ALL_BUTTON = new OLDICON(require('../assets/images/loop_all_button.png'), 77, 35);
 const OLDICON_LOOP_ONE_BUTTON = new OLDICON(require('../assets/images/loop_one_button.png'), 77, 35);
 
-const OLDICON_MUTED_BUTTON = new OLDICON(require('../assets/images/muted_button.png'), 67, 58);
-const OLDICON_UNMUTED_BUTTON = new OLDICON(require('../assets/images/unmuted_button.png'), 67, 58);
+const OLDICON_MUTED_BUTTON = new OLDICON(require('../assets/images/ICONS/mute_button.png'), 67, 58);
+const OLDICON_UNMUTED_BUTTON = new OLDICON(require('../assets/images/ICONS/unmute_button.png'), 67, 58);
 
 const OLDICON_TRACK_1 = new OLDICON(require('../assets/images/track_1.png'), 166, 5);
-const OLDICON_THUMB_1 = new OLDICON(require('../assets/images/thumb_1.png'), 18, 19);
-const OLDICON_THUMB_2 = new OLDICON(require('../assets/images/thumb_2.png'), 15, 19);
+const OLDICON_THUMB_1 = new OLDICON(require('../assets/images/ICONS/thumb.png'), 18, 19);
+const OLDICON_THUMB_2 = new OLDICON(require('../assets/images/ICONS/thumb.png'), 15, 19);
 
 const LOOPING_TYPE_ALL = 0;
 const LOOPING_TYPE_ONE = 1;
 const LOOPING_TYPE_OLDICONS = { 0: OLDICON_LOOP_ALL_BUTTON, 1: OLDICON_LOOP_ONE_BUTTON };
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
-const BG_COLOR = '#a2c8d2';
+const BG_COLOR = '#9dc6d1';
 const DISABLED_OPACITY = 0.5;
 const FONT_SIZE = 14;
-const LOADING_STRING = '... loading ...';
+const LOADING_STRING = 'loading';
 const BUFFERING_STRING = '...buffering...';
 const RATE_SCALE = 3.0;
 const VIDEO_CONTAINER_HEIGHT = DEVICE_HEIGHT * 2.0 / 5.0 - FONT_SIZE * 2;
@@ -387,6 +373,7 @@ export default class AudioPlayer extends React.Component {
           <Text style={[styles.text2]}>
             {this.state.playbackInstanceName}
           </Text>
+					
         </View>
         <View style={styles.space} />
         <View style={styles.videoContainer}>
@@ -508,7 +495,7 @@ export default class AudioPlayer extends React.Component {
             underlayColor={BG_COLOR}
             style={styles.wrapper}
             onPress={() => this._trySetRate(1.0, this.state.shouldCorrectPitch)}>
-            <View style={styles.button}>
+            <View>
             </View>
           </TouchableHighlight>
         </View>
@@ -558,6 +545,7 @@ const styles = StyleSheet.create({
   },
   playbackSlider: {
     minWidth: DEVICE_WIDTH / 2.0,
+
   },
   timestampRow: {
     flex: 1,
@@ -581,6 +569,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: BG_COLOR,
+		tintColor: 'rgba(255, 255, 255, 0.9)'
   },
   buttonsContainerBase: {
     flex: 1,
@@ -605,6 +594,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     minWidth: DEVICE_WIDTH / 2.0,
     maxWidth: DEVICE_WIDTH / 2.0,
+
   },
   volumeSlider: {
     width: DEVICE_WIDTH / 2.0 - OLDICON_MUTED_BUTTON.width,
