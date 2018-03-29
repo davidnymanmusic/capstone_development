@@ -24,6 +24,11 @@ export default class HomeScreen extends React.Component {
     }
 
 }
+componentDidMount() {
+	setTimeout(() => {
+		this.setState({rate: 3300})
+	}, 0)
+}
   render() {
     return (
 			<View style={styles.container} >
@@ -38,7 +43,7 @@ export default class HomeScreen extends React.Component {
 				<Slider style={{ width: 250, bottom: 0, position: 'absolute', bottom: 40 }} maximumTrackTintColor={'rgba(255, 255, 255, 0.5)'} minimumTrackTintColor={'#fff'}
 				step={100} minimumValue={3300} maximumValue={3800} value={this.state.rate}
 				onValueChange={val => this.setState({ rate: val})} />
-								<Text style={styles.text}>Adjust Rate</Text>
+				<Text style={styles.text}>Adjust Rate {this.state.rate}</Text>
 			</View>
     );
   }
@@ -53,15 +58,6 @@ backgroundColor: '#9dc6d1',
 alignItems: 'center',
 justifyContent: 'center'
 },
-
-
-containerWelcome: {
-flex: 1,
-backgroundColor: '#9dc6d1',
-alignItems: 'center',
-justifyContent: 'center',
-
-},
 text: {
 color: 'rgba(255, 255, 255, 0.8)',
 fontSize: 20,
@@ -73,15 +69,5 @@ color: 'rgba(255, 255, 255, 0.8)',
 fontSize: 50,
 fontFamily: 'Avenir-Book',
 paddingBottom: 40
-},
-button: {
-alignItems: 'center',
-backgroundColor: 'rgba(221, 221, 221, 0)',
-padding: 1000
-}, giphy: {
-	flex: 1,
-	backgroundColor: '#fff',
-	alignItems: 'center',
-	justifyContent: 'center'
 },
 });

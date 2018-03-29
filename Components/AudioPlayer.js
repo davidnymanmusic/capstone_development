@@ -7,6 +7,7 @@ import {
   Text,
   TouchableHighlight,
   View,
+  ScrollView,
 } from 'react-native';
 import { Asset, Audio, Font, Video } from 'expo';
 
@@ -64,7 +65,7 @@ const BG_COLOR = '#9dc6d1';
 const DISABLED_OPACITY = 0.5;
 const FONT_SIZE = 14;
 const LOADING_STRING = 'loading';
-const BUFFERING_STRING = '...buffering...';
+const BUFFERING_STRING = 'buffering';
 const RATE_SCALE = 3.0;
 const VIDEO_CONTAINER_HEIGHT = DEVICE_HEIGHT * 2.0 / 5.0 - FONT_SIZE * 2;
 
@@ -360,7 +361,9 @@ export default class AudioPlayer extends React.Component {
             onValueChange={this._onSeekSliderValueChange}
             onSlidingComplete={this._onSeekSliderSlidingComplete}
             disabled={this.state.isLoading}
-						maximumTrackTintColor={'rgba(255, 255, 255, 0.5)'} minimumTrackTintColor={'#fff'}
+						maximumTrackTintColor={'rgba(255, 255, 255, 0.5)'}
+						minimumTrackTintColor={'#fff'}
+						step={.1}
           />
           <View style={styles.timestampRow}>
             <Text style={[styles.text, styles.buffering]}>
@@ -384,7 +387,7 @@ export default class AudioPlayer extends React.Component {
             style={styles.wrapper}
             onPress={this._onBackPressed}
             disabled={this.state.isLoading}>
-            <Ionicons name='skip-back' size={50} color='#fff'/>
+            <Ionicons name='arrow-left' size={50} color='#fff'/>
           </TouchableHighlight>
           <TouchableHighlight
             underlayColor={BG_COLOR}
@@ -408,7 +411,7 @@ export default class AudioPlayer extends React.Component {
             style={styles.wrapper}
             onPress={this._onForwardPressed}
             disabled={this.state.isLoading}>
-          <Ionicons name='skip-forward' size={50} color='#fff'/>
+          <Ionicons name='arrow-right' size={50} color='#fff'/>
           </TouchableHighlight>
         </View>
         <View style={[styles.buttonsContainerBase, styles.buttonsContainerMiddleRow]}>
@@ -476,9 +479,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     // alignSelf: 'stretch',
-		borderRadius: 4,
-borderWidth: 1,
-borderColor: '#2bff54',
+// 		borderRadius: 4,
+// borderWidth: 1,
+// borderColor: '#2bff54',
 
   },
   playbackSlider: {
@@ -560,14 +563,6 @@ borderColor: '#2bff54',
     minWidth: DEVICE_WIDTH,
     maxWidth: DEVICE_WIDTH,
   },
-	slide1: {
-	flex: 1,
-	justifyContent: 'center',
-	alignItems: 'center',
-	backgroundColor: '#9dc6d1',
-	paddingTop: 18,
-	paddingBottom: 40,
-},
 text2: {
 		color: 'rgba(255, 255, 255, 0.8)',
 		fontSize: 50,
