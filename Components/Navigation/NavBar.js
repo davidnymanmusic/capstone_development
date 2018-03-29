@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableHighlight, TouchableOpacity, Button, Image, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Button, Image, Dimensions } from 'react-native';
 
 import { TabNavigator, TabBarBottom, DrawerNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Feather'
@@ -12,6 +12,7 @@ import AudioPlayer from '../AudioPlayer'
 import HomeScreen from '/Users/davidnyman/capstone/development/coming_together/Components/Screens/HomeScreen'
 import MusicScreen from '/Users/davidnyman/capstone/development/coming_together/Components/Screens/MusicScreen'
 import SettingsScreen from '/Users/davidnyman/capstone/development/coming_together/Components/Screens/SettingsScreen'
+import Main from '/Users/davidnyman/capstone/development/coming_together/Components/Screens/MainHome'
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
@@ -42,9 +43,6 @@ Animatable.initializeRegistryWithDefinitions({
 });
 
 
-
-
-
 class MyNotificationsScreen extends React.Component {
 	static navigationOptions = {
 		drawerLabel: 'Activities',
@@ -65,8 +63,6 @@ class MyNotificationsScreen extends React.Component {
 	}
 }
 
-
-
 // const MyApp = DrawerNavigator({
 // 	Home: {
 // 		screen: HomeScreen,
@@ -81,7 +77,7 @@ class MyNotificationsScreen extends React.Component {
 
 export default TabNavigator (
 {
-Home: { screen: HomeScreen },
+Home: { screen: Main },
 Music: {screen: MusicScreen},
 Settings: { screen: SettingsScreen },
 },
@@ -104,7 +100,7 @@ navigationOptions: ({ navigation }) => ({
 		// icon component from react-native-vector-icons
 		return <Ionicons name={iconName} size={25} color={tintColor} />;
 	},
-	swipeEnabled: true,
+	swipeEnabled: false,
 }),
 
 style: {

@@ -12,9 +12,9 @@
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.5.8"
   },
-	"scripts": {
-	"test": "jest"
-},
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "jest": "^22.4.3"
   }

@@ -6,23 +6,43 @@ import Ionicons from 'react-native-vector-icons/Feather'
 import * as Animatable from 'react-native-animatable';
 import Ripple from 'react-native-material-ripple';
 
-
-
+import HomeSwipe from './HomeSwipe'
+import HomeScreen from './HomeScreen'
+import SettingsScreen from './SettingsScreen'
+import SlidePlay from './SlidePlay'
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
 
-export default class SettingsScreen extends React.Component {
+export default class Main extends React.Component {
+	static navigationOptions = {
+		drawerLabel: 'Main',
+		drawerIcon: ({ tintColor }) => (
+			<Ionicons name="circle" size={20} color="#9dc6d1"/>
+		),
+	};
+	constructor(props) {
+    super(props);
+    this.state = {
+    }
+
+}
   render() {
     return (
-      <View style={styles.container}>
+			<View style={styles.container} >
+				{/* <HomeSwipe
+					element1={<SlidePlay/>}
+					element2={<SettingsScreen/>}
+					element3={<HomeScreen/>}
+				 /> */}
+				 <HomeScreen/>
+			</View>
 
-
-
-      </View>
     );
   }
 }
+
+
 const styles = StyleSheet.create({
 container: {
 flex: 1,

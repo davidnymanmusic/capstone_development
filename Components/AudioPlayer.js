@@ -7,13 +7,13 @@ import {
   Text,
   TouchableHighlight,
   View,
-	Animated
 } from 'react-native';
 import { Asset, Audio, Font, Video } from 'expo';
 
 import Icon from 'react-native-vector-icons/Feather';
 import Swiper from 'react-native-swiper';
 import * as Animatable from 'react-native-animatable';
+import Ionicons from 'react-native-vector-icons/Feather';
 
 
 Animatable.initializeRegistryWithDefinitions({
@@ -23,13 +23,12 @@ Animatable.initializeRegistryWithDefinitions({
 		  },
 		  to: {
 		    opacity: 1,
-
 		  },
   }
 });
 
 
-class OLDICON {
+class ICON {
   constructor(module, width, height) {
     this.module = module;
     this.width = width;
@@ -54,25 +53,11 @@ const PLAYLIST = [
   ),
 ];
 
-const OLDICON_PLAY_BUTTON = new OLDICON(require('../assets/images/ICONS/play_button.png'), 100, 100);
-const OLDICON_PAUSE_BUTTON = new OLDICON(require('../assets/images/ICONS/pause_button.png'), 34, 51);
-const OLDICON_STOP_BUTTON = new OLDICON(require('../assets/images/ICONS/stop_button.png'), 22, 22);
-const OLDICON_FORWARD_BUTTON = new OLDICON(require('../assets/images/ICONS/forward_button.png'), 33, 25);
-const OLDICON_BACK_BUTTON = new OLDICON(require('../assets/images/ICONS/back_button.png'), 33, 25);
 
-const OLDICON_LOOP_ALL_BUTTON = new OLDICON(require('../assets/images/loop_all_button.png'), 77, 35);
-const OLDICON_LOOP_ONE_BUTTON = new OLDICON(require('../assets/images/loop_one_button.png'), 77, 35);
-
-const OLDICON_MUTED_BUTTON = new OLDICON(require('../assets/images/ICONS/mute_button.png'), 67, 58);
-const OLDICON_UNMUTED_BUTTON = new OLDICON(require('../assets/images/ICONS/unmute_button.png'), 67, 58);
-
-const OLDICON_TRACK_1 = new OLDICON(require('../assets/images/track_1.png'), 166, 5);
-const OLDICON_THUMB_1 = new OLDICON(require('../assets/images/ICONS/thumb.png'), 18, 19);
-const OLDICON_THUMB_2 = new OLDICON(require('../assets/images/ICONS/thumb.png'), 15, 19);
 
 const LOOPING_TYPE_ALL = 0;
 const LOOPING_TYPE_ONE = 1;
-const LOOPING_TYPE_OLDICONS = { 0: OLDICON_LOOP_ALL_BUTTON, 1: OLDICON_LOOP_ONE_BUTTON };
+const LOOPING_TYPE_ICONS = { 0: <Ionicons name='refresh-cw' size={50} color='#fff'/> , 1: <Ionicons name='rotate-cw' size={50} color='#fff'/>  };
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BG_COLOR = '#9dc6d1';
@@ -138,8 +123,6 @@ export default class AudioPlayer extends React.Component {
       volume: this.state.volume,
       isMuted: this.state.muted,
       isLooping: this.state.loopingType === LOOPING_TYPE_ONE,
-      // // UNCOMMENT THIS TO TEST THE OLD androidImplementation:
-      // androidImplementation: 'MediaPlayer',
     };
 
     if (PLAYLIST[this.index].isVideo) {
@@ -207,21 +190,6 @@ export default class AudioPlayer extends React.Component {
     }
   };
 
-  _onReadyForDisplay = event => {
-    const widestHeight = DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width;
-    if (widestHeight > VIDEO_CONTAINER_HEIGHT) {
-      this.setState({
-        videoWidth: VIDEO_CONTAINER_HEIGHT * event.naturalSize.width / event.naturalSize.height,
-        videoHeight: VIDEO_CONTAINER_HEIGHT,
-      });
-    } else {
-      this.setState({
-        videoWidth: DEVICE_WIDTH,
-        videoHeight: DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width,
-      });
-    }
-  };
-
   _onFullscreenUpdate = event => {
     console.log(`FULLSCREEN UPDATE : ${JSON.stringify(event.fullscreenUpdate)}`);
   };
@@ -232,11 +200,6 @@ export default class AudioPlayer extends React.Component {
 
   async _updatePlaybackInstanceForIndex(playing) {
     this._updateScreenForLoading(true);
-
-    this.setState({
-      videoWidth: DEVICE_WIDTH,
-      videoHeight: VIDEO_CONTAINER_HEIGHT,
-    });
 
     this._loadNewPlaybackInstance(playing);
   }
@@ -288,8 +251,6 @@ export default class AudioPlayer extends React.Component {
       this.playbackInstance.setVolumeAsync(value);
     }
   };
-
-
 
   _onSeekSliderValueChange = value => {
     if (this.playbackInstance != null && !this.isSeeking) {
@@ -358,13 +319,6 @@ export default class AudioPlayer extends React.Component {
     this.setState({ useNativeControls: !this.state.useNativeControls });
   };
 
-  _onFullscreenPressed = () => {
-    try {
-      this._video.presentFullscreenPlayer();
-    } catch (error) {
-      console.log(error.toString());
-    }
-  };
 
   render() {
     return (
@@ -373,7 +327,7 @@ export default class AudioPlayer extends React.Component {
           <Text style={[styles.text2]}>
             {this.state.playbackInstanceName}
           </Text>
-					
+
         </View>
         <View style={styles.space} />
         <View style={styles.videoContainer}>
@@ -383,11 +337,8 @@ export default class AudioPlayer extends React.Component {
               styles.video,
               {
                 opacity: 1.0,
-                width: this.state.videoWidth,
-                height: this.state.videoHeight,
               },
             ]}
-            resizeMode={Video.RESIZE_MODE_CONTAIN}
             onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
             onLoadStart={this._onLoadStart}
             onLoad={this._onLoad}
@@ -405,12 +356,11 @@ export default class AudioPlayer extends React.Component {
           ]}>
           <Slider
             style={styles.playbackSlider}
-            trackImage={OLDICON_TRACK_1.module}
-            thumbImage={OLDICON_THUMB_1.module}
             value={this._getSeekSliderPosition()}
             onValueChange={this._onSeekSliderValueChange}
             onSlidingComplete={this._onSeekSliderSlidingComplete}
             disabled={this.state.isLoading}
+						maximumTrackTintColor={'rgba(255, 255, 255, 0.5)'} minimumTrackTintColor={'#fff'}
           />
           <View style={styles.timestampRow}>
             <Text style={[styles.text, styles.buffering]}>
@@ -434,31 +384,31 @@ export default class AudioPlayer extends React.Component {
             style={styles.wrapper}
             onPress={this._onBackPressed}
             disabled={this.state.isLoading}>
-            <Image style={styles.button} source={OLDICON_BACK_BUTTON.module} />
+            <Ionicons name='skip-back' size={50} color='#fff'/>
           </TouchableHighlight>
           <TouchableHighlight
             underlayColor={BG_COLOR}
             style={styles.wrapper}
             onPress={this._onPlayPausePressed}
             disabled={this.state.isLoading}>
-            <Image
-              style={styles.button}
-              source={this.state.isPlaying ? OLDICON_PAUSE_BUTTON.module : OLDICON_PLAY_BUTTON.module}
-            />
+        {this.state.isPlaying ?
+					<Ionicons name='pause-circle' size={50} color='#fff'/> :
+				  <Ionicons name='play-circle' size={50} color='#fff'/>}
+
           </TouchableHighlight>
           <TouchableHighlight
             underlayColor={BG_COLOR}
             style={styles.wrapper}
             onPress={this._onStopPressed}
             disabled={this.state.isLoading}>
-            <Image style={styles.button} source={OLDICON_STOP_BUTTON.module} />
+          <Ionicons name='stop-circle' size={50} color='#fff'/>
           </TouchableHighlight>
           <TouchableHighlight
             underlayColor={BG_COLOR}
             style={styles.wrapper}
             onPress={this._onForwardPressed}
             disabled={this.state.isLoading}>
-            <Image style={styles.button} source={OLDICON_FORWARD_BUTTON.module} />
+          <Ionicons name='skip-forward' size={50} color='#fff'/>
           </TouchableHighlight>
         </View>
         <View style={[styles.buttonsContainerBase, styles.buttonsContainerMiddleRow]}>
@@ -467,15 +417,13 @@ export default class AudioPlayer extends React.Component {
               underlayColor={BG_COLOR}
               style={styles.wrapper}
               onPress={this._onMutePressed}>
-              <Image
-                style={styles.button}
-                source={this.state.muted ? OLDICON_MUTED_BUTTON.module : OLDICON_UNMUTED_BUTTON.module}
-              />
+{this.state.muted ? <Ionicons name='volume-x' size={50} color='#fff'/> : <Ionicons name='volume' size={50} color='#fff'/>}
+
             </TouchableHighlight>
             <Slider
               style={styles.volumeSlider}
-              trackImage={OLDICON_TRACK_1.module}
-              thumbImage={OLDICON_THUMB_2.module}
+							maximumTrackTintColor={'rgba(255, 255, 255, 0.5)'}
+							minimumTrackTintColor={'#fff'}
               value={1}
               onValueChange={this._onVolumeSliderValueChange}
             />
@@ -486,19 +434,11 @@ export default class AudioPlayer extends React.Component {
             onPress={this._onLoopPressed}>
             <Image
               style={styles.button}
-              source={LOOPING_TYPE_OLDICONS[this.state.loopingType].module}
+              source={LOOPING_TYPE_ICONS[this.state.loopingType].module}
             />
           </TouchableHighlight>
         </View>
-        <View style={[styles.buttonsContainerBase, styles.buttonsContainerBottomRow]}>
-          <TouchableHighlight
-            underlayColor={BG_COLOR}
-            style={styles.wrapper}
-            onPress={() => this._trySetRate(1.0, this.state.shouldCorrectPitch)}>
-            <View>
-            </View>
-          </TouchableHighlight>
-        </View>
+
         <View />
 </View>
     );
@@ -520,31 +460,29 @@ const styles = StyleSheet.create({
 		paddingTop: 20,
 
   },
-  wrapper: {},
+  wrapper: {
+		padding: 10
+	},
   nameContainer: {
-    height: FONT_SIZE,
+    height: 50,
+
   },
   space: {
     height: FONT_SIZE,
-  },
-  videoContainer: {
-    height: 0
-  },
-  video: {
-    maxWidth: DEVICE_WIDTH,
   },
   playbackContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    alignSelf: 'stretch',
-    minHeight: OLDICON_THUMB_1.height * 2.0,
-    maxHeight: OLDICON_THUMB_1.height * 2.0,
+    // alignSelf: 'stretch',
+		borderRadius: 4,
+borderWidth: 1,
+borderColor: '#2bff54',
 
   },
   playbackSlider: {
-    minWidth: DEVICE_WIDTH / 2.0,
+    minWidth: DEVICE_WIDTH / 1.3,
 
   },
   timestampRow: {
@@ -566,6 +504,7 @@ const styles = StyleSheet.create({
   timestamp: {
     textAlign: 'center',
     paddingRight: 20,
+
   },
   button: {
     backgroundColor: BG_COLOR,
@@ -574,33 +513,38 @@ const styles = StyleSheet.create({
   buttonsContainerBase: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'space-between',
   },
   buttonsContainerTopRow: {
-    maxHeight: OLDICON_PLAY_BUTTON.height,
-    minWidth: DEVICE_WIDTH / 2.0,
-    maxWidth: DEVICE_WIDTH / 2.0,
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'stretch',
+		marginLeft: 10,
+		marginRight: 10,
+    minWidth: DEVICE_WIDTH / 1.15,
+    maxWidth: DEVICE_WIDTH / 1.15,
   },
   buttonsContainerMiddleRow: {
-    maxHeight: OLDICON_MUTED_BUTTON.height,
     alignSelf: 'stretch',
-    paddingRight: 20,
+    padding: 3,
   },
   volumeContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minWidth: DEVICE_WIDTH / 2.0,
-    maxWidth: DEVICE_WIDTH / 2.0,
+    minWidth: DEVICE_WIDTH / 1.4,
+    maxWidth: DEVICE_WIDTH / 1.4,
 
   },
   volumeSlider: {
-    width: DEVICE_WIDTH / 2.0 - OLDICON_MUTED_BUTTON.width,
+		// minWidth: DEVICE_WIDTH / 1.3,
+		// maxWidth: DEVICE_WIDTH / 1.3,
+		width: 250
   },
   buttonsContainerBottomRow: {
-    maxHeight: OLDICON_THUMB_1.height,
+
     alignSelf: 'stretch',
     paddingRight: 20,
     paddingLeft: 20,
@@ -623,18 +567,6 @@ const styles = StyleSheet.create({
 	backgroundColor: '#9dc6d1',
 	paddingTop: 18,
 	paddingBottom: 40,
-},
-slide2: {
-	flex: 1,
-	justifyContent: 'center',
-	alignItems: 'center',
-	backgroundColor: '#b2c9be'
-},
-slide3: {
-	flex: 1,
-	justifyContent: 'center',
-	alignItems: 'center',
-	backgroundColor: '#9db0d1'
 },
 text2: {
 		color: 'rgba(255, 255, 255, 0.8)',

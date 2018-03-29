@@ -15,8 +15,11 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
 				<Ripple rippleColor={'#fff'} rippleOpacity={.8} rippleSize={479} rippleDuration={3000}>
-<TouchableHighlight style={styles.button}><Text style={styles.text}>Touch</Text></TouchableHighlight>
+						<TouchableHighlight style={styles.button}>
+								<Text style={styles.text}>Touch</Text>
+						</TouchableHighlight>
 				</Ripple>
       </View>
     );
@@ -65,7 +68,8 @@ paddingBottom: 40
 text: {
 color: 'rgba(255, 255, 255, 0.8)',
 fontSize: 50,
-fontFamily: 'Avenir-Book'
+fontFamily: 'Avenir-Book',
+
 },
 textBreathe: {
 color: 'rgba(255, 255, 255, 0.8)',
@@ -76,7 +80,9 @@ paddingBottom: 40
 button: {
 alignItems: 'center',
 backgroundColor: 'rgba(221, 221, 221, 0)',
-padding: 1000
+height: height - 40,
+width: width,
+paddingTop: 40
 }, giphy: {
 	flex: 1,
 	backgroundColor: '#fff',
