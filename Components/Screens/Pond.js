@@ -3,6 +3,8 @@ import {
 	Text,
 	View,
 	StyleSheet,
+	TouchableHighlight,
+	TouchableOpacity,
 	Button,
 	Image,
 	Dimensions
@@ -13,35 +15,26 @@ import Ionicons from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import Ripple from 'react-native-material-ripple';
 
-import HomeSwipe from './HomeSwipe';
-import Breathe from './Breathe';
-import SlidePlay from './SlidePlay';
-
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
-
-export default class Main extends React.Component {
-	static navigationOptions = {
-		drawerLabel: 'Main',
-		drawerIcon: ({ tintColor }) => (
-			<Ionicons name="circle" size={20} color="#9dc6d1" />
-		)
-	};
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+export default class Pond extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				{/* <HomeSwipe
-					element1={<SlidePlay/>}
-					element2={<SettingsScreen/>}
-					element3={<Breathe/>}
-				 /> */}
-
-				{/* <SlidePlay/> */}
-				<Breathe />
+				<Ripple
+					rippleColor={'#fff'}
+					rippleOpacity={0.8}
+					rippleSize={479}
+					rippleDuration={3000}>
+					<TouchableHighlight style={styles.button}>
+						<Animatable.Text
+							// animation='fadeOut'
+							// duration={10000}
+							style={styles.text}>
+							Touch
+						</Animatable.Text>
+					</TouchableHighlight>
+				</Ripple>
 			</View>
 		);
 	}
@@ -56,7 +49,14 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		color: 'rgba(255, 255, 255, 0.8)',
-		fontSize: 50,
+		fontSize: 40,
 		fontFamily: 'Avenir-Book'
+	},
+	button: {
+		alignItems: 'center',
+		backgroundColor: 'rgba(221, 221, 221, 0)',
+		height: height - 40,
+		width: width,
+		paddingTop: 40
 	}
 });

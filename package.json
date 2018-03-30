@@ -7,6 +7,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
     "react-native-animatable": "^1.2.4",
     "react-native-material-ripple": "^0.8.0",
+    "react-native-simple-picker": "^2.0.0",
+    "react-native-snap-carousel": "^3.6.0",
     "react-native-swiper": "^1.5.13",
     "react-native-timer-countdown": "^1.1.0",
     "react-native-vector-icons": "^4.5.0",
