@@ -21,10 +21,18 @@ import Ripple from 'react-native-material-ripple';
 
 import SimplePicker from 'react-native-simple-picker';
 
+import Analytics from 'analytics-react-native';
+
+const analytics = new Analytics('htp3s4XWqjixWtI2NwIZSTEURfoLMeGu');
+
+// var Analytics = require('analytics-node');
+// var analytics = new Analytics('htp3s4XWqjixWtI2NwIZSTEURfoLMeGu');
+
+
 var width = Dimensions.get('window').width;
 var height = Dimensions.get('window').height;
 
-const options = ['😀', '🙂', '😕'];
+const options = ['😀','😊', '🙂','😕', '😔', '😩', '😢', '🙃' ];
 
 export default class Breathe extends Component {
 	constructor(props) {
@@ -89,7 +97,7 @@ export default class Breathe extends Component {
 					onPress={() => {
 						this.refs.picker.show();
 					}}>
-					<Text style={styles.you}>How are you feeling?</Text>
+					<Text style={styles.you}>How are you feeling? {this.state.selectedOption}</Text>
 				</TouchableHighlight>
 				<SimplePicker
 					ref={'picker'}
