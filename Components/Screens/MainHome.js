@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	Text,
 	View,
@@ -20,7 +20,7 @@ import SlidePlay from './SlidePlay';
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
 
-export default class Main extends React.Component {
+export default class Main extends Component {
 	static navigationOptions = {
 		drawerLabel: 'Main',
 		drawerIcon: ({ tintColor }) => (
@@ -34,13 +34,6 @@ export default class Main extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				{/* <HomeSwipe
-					element1={<SlidePlay/>}
-					element2={<SettingsScreen/>}
-					element3={<Breathe/>}
-				 /> */}
-
-				{/* <SlidePlay/> */}
 				<Breathe />
 			</View>
 		);

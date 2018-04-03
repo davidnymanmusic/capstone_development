@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	Text,
 	View,
@@ -17,7 +17,7 @@ import Ripple from 'react-native-material-ripple';
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
-export default class Pond extends React.Component {
+export default class Pond extends Component {
 	render() {
 		return (
 			<View style={styles.container}>

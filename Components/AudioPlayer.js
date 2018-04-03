@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	Dimensions,
 	Image,
@@ -43,14 +43,28 @@ class PlaylistItem {
 		this.isVideo = isVideo;
 	}
 }
-
-const PLAYLIST = [
-	new PlaylistItem(
-		'Noise',
-		'http://k003.kiwi6.com/hotlink/if2js7ipn1/whitenoise.mp3',
-		false
-	)
-];
+	const PLAYLIST = [
+	  new PlaylistItem(
+	    'Comfort Fit - “Sorry”',
+	    'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
+	    false
+	  ),
+	  new PlaylistItem(
+	    'Mildred Bailey – “All Of Me”',
+	    'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
+	    false
+	  ),
+	  new PlaylistItem(
+	    "Popeye - I don't scare",
+	    'https://ia800501.us.archive.org/11/items/popeye_i_dont_scare/popeye_i_dont_scare_512kb.mp4',
+	    true
+	  ),
+	  new PlaylistItem(
+	    'Podington Bear - “Rubber Robot”',
+	    'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3',
+	    false
+	  ),
+	];
 
 const LOOPING_TYPE_ALL = 0;
 const LOOPING_TYPE_ONE = 1;
@@ -68,7 +82,7 @@ const BUFFERING_STRING = 'buffering';
 const RATE_SCALE = 3.0;
 const VIDEO_CONTAINER_HEIGHT = DEVICE_HEIGHT * 2.0 / 5.0 - FONT_SIZE * 2;
 
-export default class AudioPlayer extends React.Component {
+export default class AudioPlayer extends Component {
 	constructor(props) {
 		super(props);
 		this.index = 0;
@@ -159,7 +173,6 @@ export default class AudioPlayer extends React.Component {
 		} else {
 			this.setState({
 				playbackInstanceName: PLAYLIST[this.index].name,
-				showVideo: PLAYLIST[this.index].isVideo,
 				isLoading: false
 			});
 		}
@@ -330,7 +343,7 @@ export default class AudioPlayer extends React.Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.nameContainer}>
-					<Text style={[styles.text2]}>{this.state.playbackInstanceName}</Text>
+					<Text style={styles.text2}>{this.state.playbackInstanceName}</Text>
 				</View>
 				<View style={styles.space} />
 				<View style={styles.videoContainer}>
@@ -496,7 +509,7 @@ const styles = StyleSheet.create({
 	},
 	timestampRow: {
 		flex: 1,
-		flexDirection: 'row',
+		flexDirection: 'column',
 		alignItems: 'center',
 		minHeight: FONT_SIZE
 	},
@@ -508,7 +521,7 @@ const styles = StyleSheet.create({
 	},
 	buffering: {
 		textAlign: 'left',
-		paddingLeft: 20
+		paddingRight: 20
 	},
 	timestamp: {
 		textAlign: 'center',
@@ -568,7 +581,7 @@ const styles = StyleSheet.create({
 	},
 	text2: {
 		color: 'rgba(255, 255, 255, 0.8)',
-		fontSize: 50,
+		fontSize: 20,
 		fontFamily: 'Avenir-Book'
 	}
 });

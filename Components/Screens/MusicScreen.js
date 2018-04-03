@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	Text,
 	View,
@@ -27,13 +27,7 @@ var height = Dimensions.get('window').height; //full height
 const MAIN_COLOR = '#9dc6d1';
 const MAIN_WHITE = 'rgba(255, 255, 255, 0.8)';
 
-export default class MusicScreen extends React.Component {
-	static navigationOptions = {
-		// drawerLabel: 'Activities',
-		// drawerIcon: ({ tintColor }) => (
-		// 	<Ionicons name="circle" size={20} color="#9dc6d1"/>
-		// ),
-	};
+export default class MusicScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -60,10 +54,6 @@ export default class MusicScreen extends React.Component {
 		this.setState({
 			pressed: true
 		});
-		// setTimeout(() =>{
-		// 	this.setState({
-		// 		isNew: false
-		// 	})}, 20000)
 	}
 	msToTime(s) {
 		var ms = s % 1000;
@@ -105,12 +95,12 @@ export default class MusicScreen extends React.Component {
 					alignItems: 'center',
 					backgroundColor: MAIN_COLOR
 				}}>
-				<TouchableHighlight
+				{/* <TouchableHighlight
 					onPress={() => {
 						this.setModalVisible(true);
 					}}>
 					<Ionicons name="menu" size={35} color="#fff" />
-				</TouchableHighlight>
+				</TouchableHighlight> */}
 				<AudioPlayer />
 
 				<View style={styles.timer}>
@@ -143,7 +133,7 @@ export default class MusicScreen extends React.Component {
 								this.setState({ count: 0, timeElapsed: 0 });
 							}}
 							allowFontScaling={true}
-							style={{ fontSize: 20 }}
+							style={{ fontSize: 20, color: MAIN_WHITE, marginTop: 20 }}
 						/>
 					) : (
 						<Text style={{ fontSize: 20, marginTop: 20, color: MAIN_WHITE }}>

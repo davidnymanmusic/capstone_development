@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, StyleSheet, Slider } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Ionicons from 'react-native-vector-icons/Feather';
 
-export default class SlidePlay extends React.Component {
+export default class SlidePlay extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	Text,
 	View,
@@ -26,13 +26,7 @@ var height = Dimensions.get('window').height;
 
 const options = ['😀', '🙂', '😕'];
 
-export default class Breathe extends React.Component {
-	static navigationOptions = {
-		drawerLabel: 'Activities',
-		drawerIcon: ({ tintColor }) => (
-			<Ionicons name="circle" size={20} color="#9dc6d1" />
-		)
-	};
+export default class Breathe extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -89,59 +83,33 @@ export default class Breathe extends React.Component {
 				/>
 				<Text style={styles.text}>Adjust Rate</Text>
 
+
 				<TouchableHighlight
 					underlayColor="rgba(0,0,0, 0)"
 					onPress={() => {
-						this.setModalVisible(true);
+						this.refs.picker.show();
 					}}>
 					<Text style={styles.you}>How are you feeling?</Text>
 				</TouchableHighlight>
-				<View>
-					<Modal
-						animationType="fade"
-						transparent={false}
-						visible={this.state.modalVisible}
-						onRequestClose={() => {
-							alert('Modal has been closed.');
-						}}>
-						<View style={styles.container}>
-							<View>
-								<TouchableHighlight
-									underlayColor="rgba(0,0,0, 0)"
-									onPress={() => {
-										this.refs.picker.show();
-									}}>
-									<Text style={styles.you}>Select</Text>
-								</TouchableHighlight>
-								<SimplePicker
-									ref={'picker'}
-									options={options}
-									itemStyle={{
-										fontSize: 55,
-										backgroundColor: '#9dc6d1'
-									}}
-									onSubmit={option => {
-										this.setState({
-											selectedOption: option
-										});
-									}}
-								/>
-
-								<TouchableHighlight
-									underlayColor="rgba(0,0,0, 0)"
-									onPress={() => {
-										this.setModalVisible(!this.state.modalVisible);
-									}}>
-									<Text style={styles.you}>Back</Text>
-								</TouchableHighlight>
-							</View>
-						</View>
-					</Modal>
-				</View>
+				<SimplePicker
+					ref={'picker'}
+					options={options}
+					itemStyle={{
+						fontSize: 55,
+						backgroundColor: '#9dc6d1'
+					}}
+					onSubmit={option => {
+						this.setState({
+							selectedOption: option
+						});
+					}}
+				/>
 			</View>
 		);
 	}
 }
+
+
 
 const styles = StyleSheet.create({
 	container: {
